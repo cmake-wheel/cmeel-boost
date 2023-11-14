@@ -1,13 +1,20 @@
 [build-system]
 build-backend = "cmeel"
-requires = ["cmeel[build]", "numpy >=1.23, <1.25"]
+requires = [
+  "cmeel[build]",
+  "numpy >=1.23, <1.25 ; python_version < 3.9",
+  "numpy ~=1.26.0 ; python_version >= 3.9"
+]
 
 [project]
-dependencies = ["numpy >=1.23, <1.25"]
+dependencies = [
+  "numpy >=1.23, <1.25 ; python_version < 3.9",
+  "numpy ~=1.26.0 ; python_version >= 3.9"
+]
 description = "cmeel distribution for boost, which provides free peer-reviewed portable C++ source libraries."
 license = "BSL-1.0"
 name = "cmeel-boost"
-requires-python = ">= 3.8, < 3.12"
+requires-python = ">= 3.8"
 version = "1.83.0"
 
 [project.urls]
