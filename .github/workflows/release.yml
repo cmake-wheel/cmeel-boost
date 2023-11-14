@@ -1,4 +1,4 @@
-name: Release on GitHub & PyPI
+name: build wheels
 
 on:
   push:
@@ -72,6 +72,7 @@ jobs:
           path: dist
 
   release:
+    name: Release on GitHub & PyPI
     needs: ["wheel", "sdist"]
     if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     runs-on: ubuntu-latest
