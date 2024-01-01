@@ -43,7 +43,7 @@ jobs:
           CIBW_MANYLINUX_AARCH64_IMAGE: "quay.io/pypa/manylinux_2_28_aarch64"
           CIBW_REPAIR_WHEEL_COMMAND: ""
           CIBW_ENVIRONMENT: CMEEL_LOG_LEVEL="DEBUG"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           path: wh
 
@@ -62,7 +62,7 @@ jobs:
           python -m pip install build cmeel[build] numpy
       - name: build sdist
         run: python -m build -nso dist .
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           path: dist
 
