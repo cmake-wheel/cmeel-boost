@@ -1,12 +1,14 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.24)
 
-set(Boost_VERSION_STRING 1.83.0)
+set(NAME boost)
+set(VERSION 1.84.0)
+set(EXT tar.bz2)
+set(SHA256 cc4b893acf645c9d4b698e9a0f08ca8846aa5d6c68275c14c3e7949c24109454)
 
-project(cmeel-boost VERSION ${Boost_VERSION_STRING})
+project(cmeel-${NAME} VERSION ${VERSION})
 
 # helper strings for Boost
-string(REPLACE "." "_" Boost_VERSION_UNDERSCORES ${Boost_VERSION_STRING})
-set(Boost_ARCHIVE "boost_${Boost_VERSION_UNDERSCORES}.tar.bz2")
+string(REPLACE "." "_" VERSION_UNDERSCORES ${VERSION})
 
 find_package(Python3 REQUIRED COMPONENTS Interpreter Development.Module)
 
@@ -37,10 +39,9 @@ message(STATUS "BUILD_COMMAND: ${BUILD_COMMAND}")
 
 include(ExternalProject)
 ExternalProject_Add(
-  Boost
-  URL "https://boostorg.jfrog.io/artifactory/main/release/${Boost_VERSION_STRING}/source/${Boost_ARCHIVE}"
-  URL_HASH
-    "SHA256=6478edfe2f3305127cffe8caf73ea0176c53769f4bf1585be237eb30798c3b8e"
+  ${NAME}
+  URL "https://boostorg.jfrog.io/artifactory/main/release/${VERSION}/source/${NAME}_${VERSION_UNDERSCORES}.${EXT}"
+  URL_HASH "SHA256=${SHA256}"
   DOWNLOAD_EXTRACT_TIMESTAMP OFF
   BUILD_IN_SOURCE ON
   CONFIGURE_COMMAND ${CONFIGURE_COMMAND}
@@ -54,4 +55,4 @@ ExternalProject_Add(
   INSTALL_COMMAND ${BUILD_COMMAND} "install")
 
 # dummy file for install target
-install(FILES README.md DESTINATION share/cmeel-boost/)
+install(FILES README.md DESTINATION share/cmeel-${NAME}/)
