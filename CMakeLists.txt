@@ -26,12 +26,12 @@ set(BUILD_COMMAND "./b2" "hardcode-dll-paths=true" "dll-path='${ORIGIN}'"
                   "link=shared" "python=3.${Python3_VERSION_MINOR}")
 
 if(APPLE AND CMAKE_HOST_SYSTEM_PROCESSOR STREQUAL "arm64")
-  set(CONFIGURE_COMMAND ${CONFIGURE_COMMAND} "cxxflags=\"-arch arm64\""
-                        "cflags=\"-arch arm64\"")
+  set(CONFIGURE_COMMAND ${CONFIGURE_COMMAND} "cxxflags=-arch arm64"
+                        "cflags=-arch arm64")
   set(BUILD_COMMAND
       ${BUILD_COMMAND} "toolset=clang-darwin" "target-os=darwin"
-      "architecture=arm" "abi=aapcs" "cxxflags=\"-arch arm64\""
-      "cflags=\"-arch arm64\"" "linkflags=\"-arch arm64\"")
+      "architecture=arm" "abi=aapcs" "cxxflags=-arch arm64"
+      "cflags=-arch arm64" "linkflags=-arch arm64")
 endif()
 
 message(STATUS "CONFIGURE_COMMAND: ${CONFIGURE_COMMAND}")
