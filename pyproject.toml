@@ -32,3 +32,4 @@ run-tests = false
 
 [tool.tomlsort]
 all = true
+trailing_comma_inline_array = true
