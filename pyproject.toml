@@ -1,21 +1,27 @@
+# ref. https://github.com/numpy/numpy/blob/main/numpy/_core/code_generators/cversions.txt
+# for C_ABI_VERSION compatibility,
+# and https://github.com/numpy/numpy/releases for python / numpy version compatibility
+
 [build-system]
 build-backend = "cmeel"
 requires = [
-  "cmeel[build]",
-  "numpy >=1.23, <1.25 ; python_version < '3.9'",
-  "numpy ~=1.26.0 ; python_version >= '3.9'"
+  "cmeel[build] @ git+https://github.com/cmake-wheel/cmeel.git",
+  "numpy >=1.24, <1.25 ; python_version < '3.9.0'",
+  "numpy >=2.0, <2.1 ; python_version ~= '3.9.0'",
+  "numpy >=2.2, <2.4 ; python_version >= '3.10.0'",
 ]
 
 [project]
 dependencies = [
-  "numpy >=1.23, <1.25 ; python_version < '3.9'",
-  "numpy ~=1.26.0 ; python_version >= '3.9'"
+  "numpy >=1.24, <1.25 ; python_version < '3.9.0'",
+  "numpy >=2.0, <2.1 ; python_version ~= '3.9.0'",
+  "numpy >=2.2, <2.4 ; python_version >= '3.10.0'",
 ]
 description = "cmeel distribution for boost, which provides free peer-reviewed portable C++ source libraries."
 license = "BSL-1.0"
 name = "cmeel-boost"
 requires-python = ">= 3.8"
-version = "1.84.0"
+version = "1.87.0"
 
 [project.urls]
 homepage = "https://github.com/cmake-wheel/cmeel-boost"
@@ -27,3 +33,4 @@ run-tests = false
 
 [tool.tomlsort]
 all = true
+trailing_comma_inline_array = true

@@ -1,15 +1,30 @@
 pull_request_rules:
   - name: merge automatically when CI passes and PR is approved
     conditions:
-      - check-success = lint
-      - check-success = Nix build on ubuntu
-      - check-success = Nix build on macos
-      - check-success = tests
-      - check-success = test-entrypoints
+      - check-success = "sdist"
+      - check-success = "Wheel cp310 macos arm64"
+      - check-success = "Wheel cp310 ubuntu aarch64"
+      - check-success = "Wheel cp310 ubuntu x86_64"
+      - check-success = "Wheel cp311 macos arm64"
+      - check-success = "Wheel cp311 ubuntu aarch64"
+      - check-success = "Wheel cp311 ubuntu x86_64"
+      - check-success = "Wheel cp312 macos arm64"
+      - check-success = "Wheel cp312 ubuntu aarch64"
+      - check-success = "Wheel cp312 ubuntu x86_64"
+      - check-success = "Wheel cp313 macos arm64"
+      - check-success = "Wheel cp313 ubuntu aarch64"
+      - check-success = "Wheel cp313 ubuntu x86_64"
+      - check-success = "Wheel cp38 ubuntu aarch64"
+      - check-success = "Wheel cp38 ubuntu x86_64"
+      - check-success = "Wheel cp39 macos arm64"
+      - check-success = "Wheel cp39 ubuntu aarch64"
+      - check-success = "Wheel cp39 ubuntu x86_64"
+      - check-success = "pre-commit.ci - pr"
       - or:
         - approved-reviews-by = nim65s
         - author = nim65s
-        - author = pre-commit-ci[bot]
         - author = dependabot[bot]
+        - author = github-actions[bot]
+        - author = pre-commit-ci[bot]
     actions:
       merge:
