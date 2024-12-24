@@ -5,16 +5,16 @@
 build-backend = "cmeel"
 requires = [
   "cmeel[build] @ git+https://github.com/cmake-wheel/cmeel.git",
-  "numpy >=1.26, <2 ; python_version < '3.9'",
-  "numpy >=2, <2.1 ; python_version >= '3.9', < '3.10'",
-  "numpy >=2.2, <2.4 ; python_version >= '3.10'",
+  "numpy >=1.26, <2 ; python_version < '3.9.0'",
+  "numpy >=2, <2.1 ; python_version ~= '3.9.0'",
+  "numpy >=2.2, <2.4 ; python_version >= '3.10.0'",
 ]
 
 [project]
 dependencies = [
-  "numpy >=1.26, <2 ; python_version < '3.9'",
-  "numpy >=2, <2.1 ; python_version >= '3.9', < '3.10'",
-  "numpy >=2.2, <2.3 ; python_version >= '3.10'"
+  "numpy >=1.26, <2 ; python_version < '3.9.0'",
+  "numpy >=2, <2.1 ; python_version ~= '3.9.0'",
+  "numpy >=2.2, <2.4 ; python_version >= '3.10.0'",
 ]
 description = "cmeel distribution for boost, which provides free peer-reviewed portable C++ source libraries."
 license = "BSL-1.0"
