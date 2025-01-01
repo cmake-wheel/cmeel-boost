@@ -40,7 +40,7 @@ message(STATUS "BUILD_COMMAND: ${BUILD_COMMAND}")
 include(ExternalProject)
 ExternalProject_Add(
   ${NAME}
-  URL "https://boostorg.jfrog.io/artifactory/main/release/${VERSION}/source/${NAME}_${VERSION_UNDERSCORES}.${EXT}"
+  URL "https://archives.boost.io/release/${VERSION}/source/${NAME}_${VERSION_UNDERSCORES}.${EXT}"
   URL_HASH "SHA256=${SHA256}"
   DOWNLOAD_EXTRACT_TIMESTAMP OFF
   BUILD_IN_SOURCE ON
