@@ -29,6 +29,7 @@ repository = "https://github.com/cmake-wheel/cmeel-boost.git"
 upstream = "https://www.boost.org/"
 
 [tool.cmeel]
+build-number = 0
 run-tests = false
 
 [tool.tomlsort]
