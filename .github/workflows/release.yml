@@ -93,7 +93,7 @@ jobs:
           path: dist
 
   release:
-    needs: ["wheel", "sdist"]
+    needs: ["test", "sdist"]
     if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     runs-on: ubuntu-24.04
     environment: release
