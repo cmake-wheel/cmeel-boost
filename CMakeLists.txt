@@ -5,7 +5,7 @@ set(VERSION 1.87.0)
 set(EXT tar.bz2)
 set(SHA256 af57be25cb4c4f4b413ed692fe378affb4352ea50fbe294a11ef548f4d527d89)
 
-project(cmeel-${NAME} VERSION ${VERSION})
+project("cmeel-${NAME}" VERSION ${VERSION})
 
 # helper strings for Boost
 string(REPLACE "." "_" VERSION_UNDERSCORES ${VERSION})
