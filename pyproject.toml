@@ -21,7 +21,7 @@ description = "cmeel distribution for boost, which provides free peer-reviewed p
 license = "BSL-1.0"
 name = "cmeel-boost"
 requires-python = ">= 3.8"
-version = "1.87.0.1"
+version = "1.88.0"
 
 [project.urls]
 homepage = "https://github.com/cmake-wheel/cmeel-boost"
@@ -30,7 +30,6 @@ upstream = "https://www.boost.org/"
 
 [tool.cmeel]
 run-tests = false
-upstream-version = "1.87.0"
 
 [tool.tomlsort]
 all = true
