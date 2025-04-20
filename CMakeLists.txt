@@ -1,11 +1,11 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.30)
 
 set(NAME boost)
 set(VERSION 1.88.0)
 set(EXT tar.bz2)
 set(SHA256 46d9d2c06637b219270877c9e16155cbd015b6dc84349af064c088e9b5b12f7b)
 
-project("cmeel-${NAME}" VERSION ${VERSION})
+project("cmeel-${NAME}" VERSION "${VERSION}")
 
 # helper strings for Boost
 string(REPLACE "." "_" VERSION_UNDERSCORES ${VERSION})
@@ -55,4 +55,4 @@ ExternalProject_Add(
   INSTALL_COMMAND ${BUILD_COMMAND} "install")
 
 # dummy file for install target
-install(FILES README.md DESTINATION share/cmeel-${NAME}/)
+install(FILES "README.md" DESTINATION "share/cmeel-${NAME}/")
