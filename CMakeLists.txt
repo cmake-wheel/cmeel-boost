@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 4.0)
 
 set(NAME boost)
-set(VERSION 1.89.0)
+set(VERSION 1.90.0)
 set(EXT tar.bz2)
-set(SHA256 85a33fa22621b4f314f8e85e1a5e2a9363d22e4f4992925d4bb3bc631b5a0c7a)
+set(SHA256 49551aff3b22cbc5c5a9ed3dbc92f0e23ea50a0f7325b0d198b705e8ee3fc305)
 
 project("cmeel-${NAME}" VERSION "${VERSION}")
 
