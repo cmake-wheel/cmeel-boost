@@ -12,7 +12,7 @@ string(REPLACE "." "_" VERSION_UNDERSCORES ${VERSION})
 
 find_package(Python3 REQUIRED COMPONENTS Interpreter Development.Module)
 
-configure_file(python.jam.in python.jam)
+configure_file(user-config.jam.in user-config.jam)
 
 if(APPLE)
   set(ORIGIN "@loader_path")
@@ -22,17 +22,38 @@ endif()
 
 set(CONFIGURE_COMMAND "./bootstrap.sh" "--prefix=${CMAKE_INSTALL_PREFIX}")
 
-set(BUILD_COMMAND "./b2" "hardcode-dll-paths=true" "dll-path='${ORIGIN}'"
-                  "link=shared" "python=3.${Python3_VERSION_MINOR}")
+set(BUILD_COMMAND
+    "./b2" "hardcode-dll-paths=true" "dll-path='${ORIGIN}'" "link=shared"
+    "python=3.${Python3_VERSION_MINOR}"
+    "--user-config=${CMAKE_BINARY_DIR}/user-config.jam")
+
+# ref https://github.com/numpy/numpy/releases
+set(NPY_TARGET_VERSION "")
+if(Python3_VERSION_MINOR LESS 13)
+  # we don't support numpy < 2.0
+  set(NPY_TARGET_VERSION "NPY_2_0_API_VERSION")
+elseif(Python3_VERSION_MINOR LESS 14)
+  # 3.13 <= python < 3.14 => runtime can't use numpy < 2.1
+  set(NPY_TARGET_VERSION "NPY_2_1_API_VERSION")
+elseif(Python3_VERSION_MINOR LESS 15)
+  # 3.14 <= python < 3.15 => runtime can't use numpy < 2.3
+  set(NPY_TARGET_VERSION "NPY_2_3_API_VERSION")
+else()
+  message(
+    FATAL_ERROR "Python 3.${Python3_VERSION_MINOR} not yet supported by numpy")
+endif()
+
+add_compile_definitions("NPY_TARGET_VERSION=${NPY_TARGET_VERSION}")
+set(_CFLAGS "-DNPY_TARGET_VERSION=${NPY_TARGET_VERSION}")
 
 if(APPLE AND CMAKE_HOST_SYSTEM_PROCESSOR STREQUAL "arm64")
-  set(CONFIGURE_COMMAND ${CONFIGURE_COMMAND} "cxxflags=-arch arm64"
-                        "cflags=-arch arm64")
-  set(BUILD_COMMAND
-      ${BUILD_COMMAND} "toolset=clang-darwin" "target-os=darwin"
-      "architecture=arm" "abi=aapcs" "cxxflags=-arch arm64"
-      "cflags=-arch arm64" "linkflags=-arch arm64")
+  set(_CFLAGS "${_CFLAGS} -arch arm64")
+  set(BUILD_COMMAND ${BUILD_COMMAND} "toolset=clang-darwin" "target-os=darwin"
+                    "architecture=arm" "abi=aapcs" "linkflags=-arch arm64")
 endif()
+
+set(CONFIGURE_COMMAND ${CONFIGURE_COMMAND} "cflags=${_CFLAGS}")
+set(BUILD_COMMAND ${BUILD_COMMAND} "cflags=${_CFLAGS}")
 
 message(STATUS "CONFIGURE_COMMAND: ${CONFIGURE_COMMAND}")
 message(STATUS "BUILD_COMMAND: ${BUILD_COMMAND}")
@@ -45,12 +66,6 @@ ExternalProject_Add(
   DOWNLOAD_EXTRACT_TIMESTAMP OFF
   BUILD_IN_SOURCE ON
   CONFIGURE_COMMAND ${CONFIGURE_COMMAND}
-  # append python configuration to generated project-config.jam
-  COMMAND
-    ${Python3_EXECUTABLE} "-c"
-    "with open('${CMAKE_BINARY_DIR}/python.jam', 'a+') as a, open('project-config.jam') as b: a.write(b.read())"
-  COMMAND ${CMAKE_COMMAND} "-E" "rename" "${CMAKE_BINARY_DIR}/python.jam"
-          "project-config.jam"
   BUILD_COMMAND ${BUILD_COMMAND}
   INSTALL_COMMAND ${BUILD_COMMAND} "install")
 

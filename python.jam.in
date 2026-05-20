@@ -1,5 +1,0 @@
-import python ;
-if ! [ python.configured ]
-{
-    using python : 3.@Python3_VERSION_MINOR@ : @Python3_EXECUTABLE@ : @Python3_INCLUDE_DIRS@ ;
-}
